@@ -37,5 +37,23 @@ namespace LegacyApp
 
             throw new ArgumentException($"User with id {clientId} does not exist in database");
         }
+        
+        /// <summary>
+        /// Add a new client to the database
+        /// </summary>
+        internal void AddClient(int clientId, string lastName, string email)
+        {
+            if (Database.ContainsKey(clientId))
+                throw new ArgumentException($"A client with id {clientId} already exists in the database.");
+            Client newClient = new Client
+            {
+                ClientId = clientId,
+                Name = lastName,
+                Email = email,
+                Address = null,
+                Type = null
+            };
+            Database.Add(clientId, newClient);
+        }
     }
 }
